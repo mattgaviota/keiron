@@ -13,11 +13,12 @@ execute these instructions in a terminal.
 4. docker-compose exec --user=$UID back bash
 5. composer install
 6. cp .env.example .env
-6. php artisan migrate --seed
-7. exit
-8. cd ticket-app
-9. npm install
-10. npm start
+7. php artisan migrate --seed
+8. exit
+9. cd ticket-app
+10. cp .env.development.local.example .env.development.local
+11. npm install
+12. npm start
 
 Then you can visit http://localhost:3000. The defaults users / pass are:
 
@@ -27,7 +28,8 @@ Then you can visit http://localhost:3000. The defaults users / pass are:
 ## Considerations
 
 The port for the API is the 8080, if you don't have that port available, you can
-change it in the docker-compose.yml file. The same with the React app.
+change it in the docker-compose.yml file and then update the .env.development.local
+inside ticket-app to update the base url for the API.
 
 The admin user can create, edit, delete and assign tickets for the users.
 The users can ask for more tickets and see what tickets are assigned to them.
