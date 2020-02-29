@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  back:
+    build: .
+    volumes:
+      - ./api/:/var/www/html
+    ports:
+      - 8080:8080
+
+  mysql:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+         - "./data/mysql:/var/lib/mysql"
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=develop
+    ports:
+     - "3306:3306"
