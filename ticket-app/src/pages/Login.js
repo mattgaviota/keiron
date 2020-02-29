@@ -19,7 +19,7 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields( async (err, values) => {
       if (!err) {
         const {data:token, errors} = await auth(values);
-        if (errors.lenght == 0) {
+        if (errors.length === 0) {
           const {data:{tipo}} = await validate(token); 
           localStorage.setItem('token', token);
           localStorage.setItem('tipo', tipo);
