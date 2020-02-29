@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-  Table, Input, Button, Popconfirm, Form,
-  Select,
+  Table, Input, Button, Popconfirm, Form, notification, Select,
 } from 'antd';
 import MainLayout from '../components/MainLayout';
 import {
@@ -221,10 +220,18 @@ class Dashboard extends React.Component {
 
   async handleMoreTickets() {
     const { inputAdd, dataSource } = this.state;
-    const { data } = await giveMeTickets({ ticket_pedido: inputAdd });
-    this.setState({
-      dataSource: [...dataSource, data],
-    });
+    const { data, errors } = await giveMeTickets({ ticket_pedido: inputAdd });
+    if (errors.length > 0) {
+      notification.warning({
+        message: 'Notification',
+        description:
+        'There are no tickets to get',
+      });
+    } else {
+      this.setState({
+        dataSource: [data, ...dataSource],
+      });
+    }
   }
 
   async handleAssign(value) {

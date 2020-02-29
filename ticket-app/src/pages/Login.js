@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import LoginLayout from '../components/LoginLayout';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, notification } from 'antd';
 import './Login.css';
 import { auth, validate } from '../services/Api';
 
@@ -18,12 +18,17 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields( async (err, values) => {
       if (!err) {
-        const {data:token} = await auth(values);
-        if (token) {
+        const {data:token, errors} = await auth(values);
+        if (errors.lenght == 0) {
           const {data:{tipo}} = await validate(token); 
           localStorage.setItem('token', token);
           localStorage.setItem('tipo', tipo);
           this.props.onRedirect();
+        } else {
+          notification.warning({
+            message: 'Notification',
+            description: errors[0],
+          });
         }
       }
     });
