@@ -2,7 +2,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-const baseUrl = 'http://localhost:8080/api/';
+const baseUrl = process.env.REACT_APP_BASE_URL ?? 'http://localhost:8080/api/';
 
 async function postRequest(payload, uri) {
   const token = localStorage.getItem('token');
